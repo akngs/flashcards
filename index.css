@@ -1,6 +1,6 @@
 html {
     font-family: serif;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 html, body {
@@ -23,8 +23,8 @@ html, body {
     position: absolute;
     left: 0;
     right: 0;
-    top: 2rem;
-    font-size: 1.8em;
+    top: 1.5rem;
+    font-size: 1.6em;
 }
 .candidates {
     margin: 0;
@@ -32,7 +32,7 @@ html, body {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 2rem;
+    bottom: 1.5rem;
 }
 .candidates > li {
     list-style-type: none;
