@@ -1,9 +1,7 @@
 var QUIZ_TYPES = [
   'def2word',
   'word2def',
-  'sen2word',
-  // 'word2syn',
-  // 'syn2word'
+  'sen2word'
 ];
 
 google.charts.load('current', {'packages': ['corechart']});
@@ -21,11 +19,34 @@ function main() {
 
 
 function nextQuiz(cards) {
-  var rightCard = cards[(Math.random() * cards.length) | 0];
+  var rightCard = chooseNextCard(cards);
   var quizType = QUIZ_TYPES[(Math.random() * QUIZ_TYPES.length) | 0];
   renderQuiz(quizType, rightCard, cards);
 }
 
+
+function chooseNextCard(cards) {
+  var perfs = loadPerformance();
+  var perfList = [];
+  cards.forEach(function (card) {
+    perfList.push({
+      card: card,
+      perf: perfs[card.id] || {word: card.word, score: 0.0, lastExposedTime: 0}
+    });
+  });
+
+  var now = Date.now();
+  var candidates = perfList
+    .sort(function (a, b) {
+      return d3.ascending(
+        a.perf.score - Math.log(now - a.perf.lastExposedTime + 1) * 0.001,
+        b.perf.score - Math.log(now - b.perf.lastExposedTime + 1) * 0.001
+      );
+    })
+    .slice(0, 10);
+
+  return d3.shuffle(candidates)[0].card;
+}
 
 function renderQuiz(quizType, rightCard, cards) {
   var wrongCandidates = findWrongCandidates(rightCard, cards).slice(0, 3);
@@ -81,7 +102,7 @@ function onClick(element, cards, clickedCard, rightCard) {
   updateScore(rightCard, clickedCard);
   if (rightCard === clickedCard) {
     d3.select(element).classed('right', true);
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       nextQuiz(cards);
     }, 500);
   } else {
@@ -91,7 +112,40 @@ function onClick(element, cards, clickedCard, rightCard) {
 
 
 function updateScore(rightCard, choosenCard) {
+  var perfs = loadPerformance();
 
+  var now = Date.now();
+  var correct = rightCard === choosenCard;
+  if (!perfs[rightCard.id]) {
+    perfs[rightCard.id] = {
+      word: rightCard.word,
+      score: 0.0,
+      lastExposedTime: 0
+    };
+  }
+  var entry = perfs[rightCard.id];
+  entry.word = rightCard.word;
+  entry.score = entry.score * 0.9 + (correct ? 1 : 0) * 0.1;
+  entry.lastExposedTime = now;
+  perfs[rightCard.id] = entry;
+
+  savePerformance(perfs);
+}
+
+
+function loadPerformance() {
+  var perfs = JSON.parse(sessionStorage.getItem('perfs'));
+  if (!perfs) {
+    sessionStorage.setItem('perfs', '{}');
+    return {};
+  } else {
+    return perfs;
+  }
+}
+
+
+function savePerformance(perfs) {
+  sessionStorage.setItem('perfs', JSON.stringify(perfs));
 }
 
 
