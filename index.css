@@ -1,0 +1,100 @@
+html {
+    font-family: serif;
+    font-size: 18px;
+}
+
+html, body {
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+}
+
+.quiz {
+    height: 100%;
+}
+
+.card {
+    padding: 1rem;
+}
+
+.question {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2rem;
+    font-size: 1.8em;
+}
+.candidates {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2rem;
+}
+.candidates > li {
+    list-style-type: none;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.card .word {
+    text-align: center;
+}
+
+.card .word,
+.card .definition,
+.card .synonyms,
+.card .sentences {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+.card .synonyms li,
+.card .sentences li {
+    list-style-type: none;
+    padding: 0;
+}
+
+.candidates .card {
+    margin: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.candidates .card:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+.candidates .card.wrong {
+    background-color: rgba(255, 0, 0, 0.2);
+    cursor: not-allowed;
+}
+
+.quiz.word2def {
+    background-color: #b3e3ce;
+}
+.quiz.word2def .question.card .word {
+    display: block;
+}
+.quiz.word2def .candidates .card .definition {
+    display: block;
+}
+
+.quiz.def2word {
+    background-color: #fdcdac;
+}
+.quiz.def2word .question.card .definition {
+    display: block;
+}
+.quiz.def2word .candidates .card .word {
+    display: block;
+}
+
+.quiz.sen2word {
+    background-color: #cbd5e8;
+}
+.quiz.sen2word .question.card .sentences {
+    display: block;
+}
+.quiz.sen2word .candidates .card .word {
+    display: block;
+}
