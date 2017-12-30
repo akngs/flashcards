@@ -99,7 +99,7 @@ function renderCard(card) {
 function onClick(element, cards, clickedCard, rightCard) {
   if (d3.select(element).classed('wrong')) return;
 
-  updateScore(rightCard, clickedCard);
+  updatePerf(rightCard, clickedCard);
   if (rightCard === clickedCard) {
     d3.select(element).classed('right', true);
     window.setTimeout(function () {
@@ -111,25 +111,34 @@ function onClick(element, cards, clickedCard, rightCard) {
 }
 
 
-function updateScore(rightCard, choosenCard) {
+function updatePerf(rightCard, choosenCard) {
   var perfs = loadPerformance();
 
   var now = Date.now();
   var correct = rightCard === choosenCard;
-  if (!perfs[rightCard.id]) {
-    perfs[rightCard.id] = {
-      word: rightCard.word,
+  updatePerfForEntry(perfs, rightCard, correct, now);
+  if(!correct) {
+    updatePerfForEntry(perfs, choosenCard, correct, now);
+  }
+
+  savePerformance(perfs);
+}
+
+
+function updatePerfForEntry(perfs, card, correct, now) {
+  if(!perfs[card.id]) {
+    perfs[card.id] = {
+      word: card.word,
       score: 0.0,
       lastExposedTime: 0
     };
   }
-  var entry = perfs[rightCard.id];
-  entry.word = rightCard.word;
-  entry.score = entry.score * 0.9 + (correct ? 1 : 0) * 0.1;
-  entry.lastExposedTime = now;
-  perfs[rightCard.id] = entry;
 
-  savePerformance(perfs);
+  var perf = perfs[card.id];
+  perf.word = card.word;
+  perf.score = perf.score * 0.9 + (correct ? 1 : 0) * 0.1;
+  perf.lastExposedTime = now;
+  perfs[card.id] = perf;
 }
 
 
