@@ -40,9 +40,6 @@ function renderQuiz(quizType, rightCard, cards) {
     .append('li')
     .classed('card', true)
     .classed('wrong', false)
-    .classed('right', function (c) {
-      return c === rightCard
-    })
     .each(renderCard)
     .on('click', function (c) {
       onClick(this, cards, c, rightCard);
@@ -83,7 +80,10 @@ function onClick(element, cards, clickedCard, rightCard) {
 
   updateScore(rightCard, clickedCard);
   if (rightCard === clickedCard) {
-    nextQuiz(cards);
+    d3.select(element).classed('right', true);
+    window.setTimeout(function() {
+      nextQuiz(cards);
+    }, 500);
   } else {
     d3.select(element).classed('wrong', true);
   }
