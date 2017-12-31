@@ -1,24 +1,31 @@
 var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word', 'synonyms'], deck = [];
 
-d3.csv(
-  'data/words.csv',
-  function (r) {
-    return {
-      id: r.word + '_' + hash([r.wordclass, r.synonyms, r.definition, r.sentences].join('-')),
-      word: r.word,
-      wordclass: r.wordclass,
-      synonyms: r.synonyms.split(';'),
-      definition: r.definition,
-      sentences: r.sentences.split(';').map(function (s) {
-        return s.replace(/\*.+?\*/g, '____');
-      })
+function main() {
+  d3.selectAll('.info .toggle').on('click', function() {
+    var contents = d3.select('.info .contents');
+    contents.classed('hidden', !contents.classed('hidden'));
+  });
+
+  d3.csv(
+    'data/words.csv',
+    function (r) {
+      return {
+        id: r.word + '_' + hash([r.wordclass, r.synonyms, r.definition, r.sentences].join('-')),
+        word: r.word,
+        wordclass: r.wordclass,
+        synonyms: r.synonyms.split(';'),
+        definition: r.definition,
+        sentences: r.sentences.split(';').map(function (s) {
+          return s.replace(/\*.+?\*/g, '____');
+        })
+      }
+    },
+    function (err, data) {
+      deck = data;
+      nextQuiz();
     }
-  },
-  function (err, data) {
-    deck = data;
-    nextQuiz();
-  }
-);
+  );
+}
 
 function nextQuiz() {
   var quizType = QUIZ_TYPES[(Math.random() * QUIZ_TYPES.length) | 0];
@@ -107,10 +114,10 @@ function savePerformance(perfs) {
 function getProbableChoices(card) {
   var duplicates = d3.set([card.word]);
   var similarWords = d3.set(deck
-    .filter(function(c) {
+    .filter(function (c) {
       return c.synonyms.indexOf(card.word) !== -1;
     })
-    .map(function(c) {
+    .map(function (c) {
       return c.word;
     })
   );
@@ -135,3 +142,5 @@ function hash(s) {
   while (i) hash = (hash * 33) ^ s.charCodeAt(--i);
   return hash >>> 0;
 }
+
+main();

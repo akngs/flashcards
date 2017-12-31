@@ -23,9 +23,10 @@ html, body {
     position: absolute;
     left: 0;
     right: 0;
-    top: 1.5rem;
+    top: 2.2rem;
     font-size: 1.6em;
 }
+
 .choices {
     margin: 0;
     padding: 0;
@@ -34,6 +35,7 @@ html, body {
     right: 0;
     bottom: 1.5rem;
 }
+
 .choices > li {
     list-style-type: none;
     padding: 0.8rem;
@@ -53,6 +55,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 .card .synonyms li,
 .card .sentences li {
     list-style-type: none;
@@ -64,13 +67,16 @@ html, body {
     border: 1px solid rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.2);
 }
+
 .choices .card:active {
     background-color: rgba(255, 255, 255, 0.4);
 }
+
 .choices .card.wrong {
     background-color: rgba(255, 0, 0, 0.2);
     cursor: not-allowed;
 }
+
 .choices .card.right {
     background-color: rgba(0, 255, 0, 0.2);
 }
@@ -78,9 +84,11 @@ html, body {
 .quiz.word2def {
     background-color: #b3e2cd;
 }
+
 .quiz.word2def .question.card .word {
     display: block;
 }
+
 .quiz.word2def .choices .card .definition {
     display: block;
 }
@@ -88,9 +96,11 @@ html, body {
 .quiz.def2word {
     background-color: #fdcdac;
 }
+
 .quiz.def2word .question.card .definition {
     display: block;
 }
+
 .quiz.def2word .choices .card .word {
     display: block;
 }
@@ -98,9 +108,11 @@ html, body {
 .quiz.sen2word {
     background-color: #cbd5e8;
 }
+
 .quiz.sen2word .question.card .sentences {
     display: block;
 }
+
 .quiz.sen2word .choices .card .word {
     display: block;
 }
@@ -108,15 +120,51 @@ html, body {
 .quiz.synonyms {
     background-color: #f4cae4;
 }
+
 .quiz.synonyms .question.card .synonyms {
     display: block;
 }
+
 .quiz.synonyms .question.card .synonyms:before {
     display: block;
     content: "Choose a synonym of the following words:";
     margin-bottom: 1rem;
     font-size: 1rem;
 }
+
 .quiz.synonyms .choices .card .word {
     display: block;
+}
+
+.info .toggle {
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 0.8rem;
+    line-height: 1.4rem;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.info .contents {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    padding: 2rem 1rem;
+    background-color: #cccccc;
+    line-height: 1.4em;
+}
+.info .contents.hidden {
+    display: none;
+}
+.info .contents li {
+    margin-bottom: 0.5em;
 }
