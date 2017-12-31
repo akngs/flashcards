@@ -16,7 +16,7 @@ html, body {
 }
 
 .card {
-    padding: 1rem;
+    padding: 0.8rem;
 }
 
 .question {
@@ -36,7 +36,7 @@ html, body {
 }
 .choices > li {
     list-style-type: none;
-    padding: 1em;
+    padding: 0.8rem;
     cursor: pointer;
 }
 
@@ -113,8 +113,8 @@ html, body {
 }
 .quiz.synonyms .question.card .synonyms:before {
     display: block;
-    content: "Choose a synonym of followings:";
-    margin-bottom: 1em;
+    content: "Choose a synonym of the following words:";
+    margin-bottom: 1rem;
     font-size: 1rem;
 }
 .quiz.synonyms .choices .card .word {
