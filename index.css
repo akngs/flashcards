@@ -26,7 +26,7 @@ html, body {
     top: 1.5rem;
     font-size: 1.6em;
 }
-.candidates {
+.choices {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -34,7 +34,7 @@ html, body {
     right: 0;
     bottom: 1.5rem;
 }
-.candidates > li {
+.choices > li {
     list-style-type: none;
     padding: 1em;
     cursor: pointer;
@@ -58,19 +58,19 @@ html, body {
     padding: 0;
 }
 
-.candidates .card {
+.choices .card {
     margin: 1em;
     border: 1px solid rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.2);
 }
-.candidates .card:active {
+.choices .card:active {
     background-color: rgba(255, 255, 255, 0.4);
 }
-.candidates .card.wrong {
+.choices .card.wrong {
     background-color: rgba(255, 0, 0, 0.2);
     cursor: not-allowed;
 }
-.candidates .card.right {
+.choices .card.right {
     background-color: rgba(0, 255, 0, 0.2);
 }
 
@@ -80,7 +80,7 @@ html, body {
 .quiz.word2def .question.card .word {
     display: block;
 }
-.quiz.word2def .candidates .card .definition {
+.quiz.word2def .choices .card .definition {
     display: block;
 }
 
@@ -90,7 +90,7 @@ html, body {
 .quiz.def2word .question.card .definition {
     display: block;
 }
-.quiz.def2word .candidates .card .word {
+.quiz.def2word .choices .card .word {
     display: block;
 }
 
@@ -100,6 +100,6 @@ html, body {
 .quiz.sen2word .question.card .sentences {
     display: block;
 }
-.quiz.sen2word .candidates .card .word {
+.quiz.sen2word .choices .card .word {
     display: block;
 }
