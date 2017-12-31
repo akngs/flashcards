@@ -9,6 +9,8 @@
 
 스크린샷:
 
-![screenshots/def2word.png]
-![screenshots/word2.png]
-![screenshots/sentences.png]
+![def2word](screenshots/def2word.png)
+
+![word2def](screenshots/word2def.png)
+
+![sentences](screenshots/sentences.png)
