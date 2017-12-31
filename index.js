@@ -135,9 +135,9 @@ function updatePerfForEntry(perfs, card, correct, now) {
 
 
 function loadPerformance() {
-  var perfs = JSON.parse(sessionStorage.getItem('perfs'));
+  var perfs = JSON.parse(localStorage.getItem('perfs'));
   if (!perfs) {
-    sessionStorage.setItem('perfs', '{}');
+    localStorage.setItem('perfs', '{}');
     return {};
   } else {
     return perfs;
@@ -146,13 +146,13 @@ function loadPerformance() {
 
 
 function savePerformance(perfs) {
-  sessionStorage.setItem('perfs', JSON.stringify(perfs));
+  localStorage.setItem('perfs', JSON.stringify(perfs));
 }
 
 
 function parseRow(row) {
   return {
-    id: +row.id,
+    id: row.word + '_' + hash([row.wordclass, row.synonyms, row.definition, row.sentences].join('-')),
     word: row.word,
     wordclass: row.wordclass,
     synonyms: row.synonyms.split(';'),
@@ -180,4 +180,14 @@ function findWrongCandidates(rightCard, cards) {
     words.add(c.word);
     return !duplicated;
   });
+}
+
+
+function hash(s) {
+  var hash = 5381;
+  var i = s.length;
+  while(i) {
+    hash = (hash * 33) ^ s.charCodeAt(--i);
+  }
+  return hash >>> 0;
 }
