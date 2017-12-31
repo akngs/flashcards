@@ -23,7 +23,7 @@ function chooseNextCard(cards) {
   cards.forEach(function (card) {
     perfList.push({
       card: card,
-      perf: perfs[card.id] || {word: card.word, score: 0.0, lastExposedTime: 0}
+      perf: perfs[card.id] || {word: card.word, score: 0.5, lastExposedTime: 0}
     });
   });
 
@@ -121,7 +121,7 @@ function updatePerfForEntry(perfs, card, correct, now) {
   if (!perfs[card.id]) {
     perfs[card.id] = {
       word: card.word,
-      score: 0.0,
+      score: 0.5,
       lastExposedTime: 0
     };
   }
