@@ -37,7 +37,7 @@ function nextQuiz() {
   d3.select('.quiz .choices')
     .html('')
     .selectAll('li.card').data(choices).enter().append('li')
-    .attr('class', 'card')
+    .attr('class', function(c) {return 'card ' + (card === c ? 'correct' : 'incorrect');})
     .each(renderCard)
     .on('click', function (clickedCard) {
       if (d3.select(this).classed('wrong')) return;
@@ -68,7 +68,7 @@ function chooseCard() {
 
 function renderCard(card) {
   var cardSel = d3.select(this)
-    .attr('id', 'card' + card.id)
+    .attr('id', 'card_' + card.id)
     .attr('data-id', card.id)
     .html('');
   cardSel.append('p').attr('class', 'word').text(card.word);
