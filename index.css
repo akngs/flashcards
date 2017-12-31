@@ -40,7 +40,8 @@ html, body {
     cursor: pointer;
 }
 
-.card .word {
+.card .word,
+.card .synonyms {
     text-align: center;
 }
 
@@ -75,7 +76,7 @@ html, body {
 }
 
 .quiz.word2def {
-    background-color: #b3e3ce;
+    background-color: #b3e2cd;
 }
 .quiz.word2def .question.card .word {
     display: block;
@@ -101,5 +102,21 @@ html, body {
     display: block;
 }
 .quiz.sen2word .choices .card .word {
+    display: block;
+}
+
+.quiz.synonyms {
+    background-color: #f4cae4;
+}
+.quiz.synonyms .question.card .synonyms {
+    display: block;
+}
+.quiz.synonyms .question.card .synonyms:before {
+    display: block;
+    content: "Choose a synonym of followings:";
+    margin-bottom: 1em;
+    font-size: 1rem;
+}
+.quiz.synonyms .choices .card .word {
     display: block;
 }

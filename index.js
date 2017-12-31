@@ -1,4 +1,4 @@
-var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word'], deck = [];
+var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word', 'synonyms'], deck = [];
 
 d3.csv(
   'data/words.csv',
@@ -67,10 +67,10 @@ function renderCard(card) {
   cardSel.append('p').attr('class', 'word').text(card.word);
   cardSel.append('p').attr('class', 'definition').text(card.definition);
   cardSel.append('ul').attr('class', 'synonyms')
-    .selectAll('li').data(d3.shuffle(card.synonyms)).enter().append('li')
+    .selectAll('li').data(d3.shuffle(card.synonyms).slice(0, 4)).enter().append('li')
     .text(String);
   cardSel.append('ul').attr('class', 'sentences')
-    .selectAll('li').data(d3.shuffle(card.sentences)).enter().append('li')
+    .selectAll('li').data(d3.shuffle(card.sentences).slice(0, 4)).enter().append('li')
     .text(String);
 }
 
