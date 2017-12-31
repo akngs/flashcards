@@ -106,6 +106,15 @@ function savePerformance(perfs) {
 
 function getProbableChoices(card) {
   var duplicates = d3.set([card.word]);
+  var similarWords = d3.set(deck
+    .filter(function(c) {
+      return c.synonyms.indexOf(card.word) !== -1;
+    })
+    .map(function(c) {
+      return c.word;
+    })
+  );
+
   return d3.shuffle(deck)
     .filter(function (c) {
       return c.wordclass === card.wordclass;
@@ -114,6 +123,9 @@ function getProbableChoices(card) {
       var duplicated = duplicates.has(c.word);
       duplicates.add(c.word);
       return !duplicated;
+    })
+    .filter(function (c) {
+      return !similarWords.has(c.word);
     })
     .slice(0, 3);
 }
