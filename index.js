@@ -4,18 +4,10 @@ var QUIZ_TYPES = [
   'sen2word'
 ];
 
-google.charts.load('current', {'packages': ['corechart']});
-google.charts.setOnLoadCallback(main);
 
-
-function main() {
-  var url = 'https://docs.google.com/spreadsheets/d/1969Gi-7GP1bmJXH72y4PNmnp2Up9ESEpmjGGuGfBAHE/edit?usp=sharing';
-  var query = new google.visualization.Query(url);
-  query.send(function (res) {
-    var cards = parseRawData(JSON.parse(res.getDataTable().toJSON()));
-    nextQuiz(cards);
-  });
-}
+d3.csv('data/words.csv', parseRow, function (err, cards) {
+  nextQuiz(cards);
+});
 
 
 function nextQuiz(cards) {
@@ -117,7 +109,7 @@ function updatePerf(rightCard, choosenCard) {
   var now = Date.now();
   var correct = rightCard === choosenCard;
   updatePerfForEntry(perfs, rightCard, correct, now);
-  if(!correct) {
+  if (!correct) {
     updatePerfForEntry(perfs, choosenCard, correct, now);
   }
 
@@ -126,7 +118,7 @@ function updatePerf(rightCard, choosenCard) {
 
 
 function updatePerfForEntry(perfs, card, correct, now) {
-  if(!perfs[card.id]) {
+  if (!perfs[card.id]) {
     perfs[card.id] = {
       word: card.word,
       score: 0.0,
@@ -158,19 +150,17 @@ function savePerformance(perfs) {
 }
 
 
-function parseRawData(raw) {
-  return raw.rows.map(function (row, ri) {
-    return {
-      id: +row.c[0].v,
-      word: row.c[1].v,
-      wordclass: row.c[2].v,
-      synonyms: row.c[3].v.split(';'),
-      definition: row.c[4].v,
-      sentences: row.c[5].v.split(';').map(function (s) {
-        return s.replace(/\*.+?\*/g, '[___]')
-      })
-    };
-  });
+function parseRow(row) {
+  return {
+    id: +row.id,
+    word: row.word,
+    wordclass: row.wordclass,
+    synonyms: row.synonyms.split(';'),
+    definition: row.definition,
+    sentences: row.sentences.split(';').map(function (s) {
+      return s.replace(/\*.+?\*/g, '____');
+    })
+  }
 }
 
 
