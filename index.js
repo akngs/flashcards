@@ -62,6 +62,15 @@ function nextQuiz() {
         window.setTimeout(nextQuiz, 500);
       }
     });
+
+  // TTS for word type quiz
+  if(['word2syn', 'word2def'].indexOf(quizType) !== -1) {
+    if ('speechSynthesis' in window) {
+      var msg = new SpeechSynthesisUtterance();
+      msg.text = card.word;
+      window.speechSynthesis.speak(msg);
+    }
+  }
 }
 
 function showStudy(card) {
