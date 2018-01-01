@@ -7,7 +7,7 @@ function main() {
     contents.classed('hidden', !contents.classed('hidden'));
   });
 
-  d3.select('.study .next').on('click', function () {
+  d3.select('.study').on('click', function () {
     d3.select('.study').classed('opened', false);
     nextQuiz();
   });

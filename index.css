@@ -217,20 +217,6 @@ a {
     content: "";
 }
 
-.study .next {
-    position: absolute;
-    left: 1em;
-    right: 1em;
-    bottom: 2.5em;
-    height: 3em;
-    line-height: 3em;
-
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    text-align: center;
-}
-
 .info .toggle {
     position: fixed;
     top: 0.5rem;
