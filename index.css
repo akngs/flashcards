@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-family: serif;
     font-size: 16px;
@@ -217,7 +221,7 @@ a {
     position: absolute;
     left: 1em;
     right: 1em;
-    bottom: 5em;
+    bottom: 2.5em;
     height: 3em;
     line-height: 3em;
 
