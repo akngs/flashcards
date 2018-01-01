@@ -19,7 +19,7 @@ a {
     height: 100%;
 }
 
-.card {
+.quiz .card {
     padding: 0.8rem;
 }
 
@@ -46,22 +46,22 @@ a {
     cursor: pointer;
 }
 
-.card .word,
-.card .synonyms {
+.quiz .card .word,
+.quiz .card .synonyms {
     text-align: center;
 }
 
-.card .word,
-.card .definition,
-.card .synonyms,
-.card .sentences {
+.quiz .card .word,
+.quiz .card .definition,
+.quiz .card .synonyms,
+.quiz .card .sentences {
     display: none;
     margin: 0;
     padding: 0;
 }
 
-.card .synonyms li,
-.card .sentences li {
+.quiz .card .synonyms li,
+.quiz .card .sentences li {
     list-style-type: none;
     padding: 0;
 }
@@ -169,6 +169,62 @@ a {
 
 .quiz.word2syn .choices .card .synonyms li:last-child:after {
     content: "";
+}
+
+.study {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    padding: 1em;
+
+    top: 100vh;
+    transition: top 0.5s;
+
+    background-color: #f1e2cc;
+}
+.study.opened {
+    top: 0;
+}
+
+.study h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.study .wordclass {
+    font-size: 0.8em;
+    font-weight: normal;
+    margin-left: 0.5em;
+    font-style: italic;
+}
+
+.study .synonyms ul {
+    margin: 0;
+    list-style-type: none;
+}
+.study .synonyms li {
+    display: inline;
+}
+.study .synonyms li:after {
+    content: ", ";
+}
+.study .synonyms li:last-child:after {
+    content: "";
+}
+
+.study .next {
+    position: absolute;
+    left: 1em;
+    right: 1em;
+    bottom: 5em;
+    height: 3em;
+    line-height: 3em;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    text-align: center;
 }
 
 .info .toggle {

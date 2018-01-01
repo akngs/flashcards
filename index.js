@@ -7,6 +7,11 @@ function main() {
     contents.classed('hidden', !contents.classed('hidden'));
   });
 
+  d3.select('.study .next').on('click', function () {
+    d3.select('.study').classed('opened', false);
+    nextQuiz();
+  });
+
   d3.csv(
     'data/words.csv',
     function (r) {
@@ -16,7 +21,8 @@ function main() {
         wordclass: r.wordclass,
         synonyms: r.synonyms.split(';'),
         definition: r.definition,
-        sentences: r.sentences.split(';').map(function (s) {
+        sentences: r.sentences.split(';'),
+        maskedSentences: r.sentences.split(';').map(function (s) {
           return s.replace(/\*.+?\*/g, '____');
         })
       }
@@ -47,8 +53,28 @@ function nextQuiz() {
       updatePerf(card, clickedCard);
       var correct = card === clickedCard;
       d3.select(this).classed(correct ? 'right' : 'wrong', true);
-      if (correct) window.setTimeout(nextQuiz, 500);
+
+      if (correct && document.querySelector('.quiz .choices .wrong')) {
+        window.setTimeout(function () {
+          showStudy(card);
+        }, 1000);
+      } else if (correct) {
+        window.setTimeout(nextQuiz, 500);
+      }
     });
+}
+
+function showStudy(card) {
+  var study = d3.select('.study').classed('opened', true);
+  study.select('.word').text(card.word);
+  study.select('.wordclass').text(card.wordclass);
+  study.select('.definition').text(card.definition);
+  study.select('.sentences ul').html('').selectAll('li').data(card.sentences).enter()
+    .append('li')
+    .text(String);
+  study.select('.synonyms ul').html('').selectAll('li').data(card.synonyms).enter()
+    .append('li')
+    .text(String);
 }
 
 function chooseCard() {
@@ -80,7 +106,7 @@ function renderCard(card) {
     .selectAll('li').data(d3.shuffle(card.synonyms).slice(0, 4)).enter().append('li')
     .text(String);
   cardSel.append('ul').attr('class', 'sentences')
-    .selectAll('li').data(d3.shuffle(card.sentences).slice(0, 4)).enter().append('li')
+    .selectAll('li').data(d3.shuffle(card.maskedSentences).slice(0, 4)).enter().append('li')
     .text(String);
 }
 
