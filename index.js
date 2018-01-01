@@ -63,13 +63,15 @@ function nextQuiz() {
       }
     });
 
-  // TTS for word type quiz
-  if(['word2syn', 'word2def'].indexOf(quizType) !== -1) {
-    if ('speechSynthesis' in window) {
-      var msg = new SpeechSynthesisUtterance();
-      msg.text = card.word;
-      window.speechSynthesis.speak(msg);
-    }
+  if (['word2syn', 'word2def'].indexOf(quizType) !== -1) speak(card.word);
+}
+
+function speak(text) {
+  if (!text) return;
+  if ('speechSynthesis' in window) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = text;
+    window.speechSynthesis.speak(msg);
   }
 }
 
@@ -84,6 +86,8 @@ function showStudy(card) {
   study.select('.synonyms ul').html('').selectAll('li').data(card.synonyms).enter()
     .append('li')
     .text(String);
+
+  speak(card.word);
 }
 
 function chooseCard() {
