@@ -100,6 +100,12 @@ function updatePerfForEntry(perfs, card, correct, now) {
   perf.score = perf.score * 0.9 + (correct ? 1 : 0) * 0.1;
   perf.lastExposedTime = now;
   perfs[card.id] = perf;
+
+  window['dataLayer'].push({
+    'event': 'choice',
+    'cardId': card.id,
+    'choiceResult': correct ? 'correct' : 'incorrect'
+  });
 }
 
 function defaultPerfEntry(card) {
