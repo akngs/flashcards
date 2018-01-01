@@ -9,7 +9,7 @@ function main() {
 
   d3.select('.study').on('click', function () {
     d3.select('.study').classed('opened', false);
-    nextQuiz();
+    window.setTimeout(nextQuiz, 500);
   });
 
   d3.csv(
