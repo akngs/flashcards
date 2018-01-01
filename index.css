@@ -121,23 +121,54 @@ a {
     display: block;
 }
 
-.quiz.synonyms {
+.quiz.syn2word {
     background-color: #f4cae4;
 }
 
-.quiz.synonyms .question.card .synonyms {
+.quiz.syn2word .question.card .synonyms {
     display: block;
 }
 
-.quiz.synonyms .question.card .synonyms:before {
+.quiz.syn2word .question.card .synonyms:before {
     display: block;
     content: "Choose a synonym of the following words:";
     margin-bottom: 1rem;
     font-size: 1rem;
 }
 
-.quiz.synonyms .choices .card .word {
+.quiz.syn2word .choices .card .word {
     display: block;
+}
+
+.quiz.word2syn {
+    background-color: #e6f5c9;
+}
+
+.quiz.word2syn .question.card .word {
+    display: block;
+}
+
+.quiz.word2syn .question.card .word:before {
+    display: block;
+    content: "Choose synonyms of the following word:";
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.quiz.word2syn .choices .card .synonyms {
+    display: block;
+}
+
+.quiz.word2syn .choices .card .synonyms li {
+    display: inline;
+}
+
+.quiz.word2syn .choices .card .synonyms li:after {
+    content: ", ";
+}
+
+.quiz.word2syn .choices .card .synonyms li:last-child:after {
+    content: "";
 }
 
 .info .toggle {
@@ -166,9 +197,11 @@ a {
     background-color: #cccccc;
     line-height: 1.4em;
 }
+
 .info .contents.hidden {
     display: none;
 }
+
 .info .contents li {
     margin-bottom: 0.5em;
 }

@@ -1,7 +1,8 @@
-var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word', 'synonyms'], deck = [];
+var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word', 'syn2word', 'word2syn'];
+var deck = [];
 
 function main() {
-  d3.selectAll('.info .toggle').on('click', function() {
+  d3.selectAll('.info .toggle').on('click', function () {
     var contents = d3.select('.info .contents');
     contents.classed('hidden', !contents.classed('hidden'));
   });
@@ -37,7 +38,9 @@ function nextQuiz() {
   d3.select('.quiz .choices')
     .html('')
     .selectAll('li.card').data(choices).enter().append('li')
-    .attr('class', function(c) {return 'card ' + (card === c ? 'correct' : 'incorrect');})
+    .attr('class', function (c) {
+      return 'card ' + (card === c ? 'correct' : 'incorrect');
+    })
     .each(renderCard)
     .on('click', function (clickedCard) {
       if (d3.select(this).classed('wrong')) return;
