@@ -1,4 +1,12 @@
-var QUIZ_TYPES = ['def2word', 'word2def', 'sen2word', 'syn2word', 'word2syn'];
+var QUIZ_TYPES = [
+  'def2word',
+  'word2def',
+  'sen2word',
+  'syn2word',
+  'word2syn',
+  'word2trans',
+  'trans2word'
+];
 var deck = [];
 
 function main() {
@@ -16,9 +24,10 @@ function main() {
     'data/words.csv',
     function (r) {
       return {
-        id: r.word + '_' + hash([r.wordclass, r.synonyms, r.definition, r.sentences].join('-')),
+        id: r.word + '_' + hash([r.wordclass, r.synonyms, r.definition, r.translations, r.sentences].join('-')),
         word: r.word,
         wordclass: r.wordclass,
+        translations: r.translations ? r.translations.split(';') : [],
         synonyms: r.synonyms.split(';'),
         definition: r.definition,
         sentences: r.sentences.split(';'),
@@ -63,7 +72,8 @@ function nextQuiz() {
       }
     });
 
-  if (['word2syn', 'word2def'].indexOf(quizType) !== -1) speak(card.word);
+  if (['word2syn', 'word2def', 'word2trans'].indexOf(quizType) !== -1)
+    speak(card.word);
 }
 
 function speak(text) {
@@ -80,6 +90,9 @@ function showStudy(card) {
   study.select('.word').text(card.word);
   study.select('.wordclass').text(card.wordclass);
   study.select('.definition').text(card.definition);
+  study.select('.translations ul').html('').selectAll('li').data(card.translations).enter()
+    .append('li')
+    .text(String);
   study.select('.sentences ul').html('').selectAll('li').data(card.sentences).enter()
     .append('li')
     .text(String);
@@ -114,6 +127,9 @@ function renderCard(card) {
     .attr('data-id', card.id)
     .html('');
   cardSel.append('p').attr('class', 'word').text(card.word);
+  cardSel.append('ul').attr('class', 'translations')
+    .selectAll('li').data(d3.shuffle(card.translations).slice(0, 4)).enter().append('li')
+    .text(String);
   cardSel.append('p').attr('class', 'definition').text(card.definition);
   cardSel.append('ul').attr('class', 'synonyms')
     .selectAll('li').data(d3.shuffle(card.synonyms).slice(0, 4)).enter().append('li')
