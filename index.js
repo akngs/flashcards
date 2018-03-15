@@ -9,6 +9,7 @@ var QUIZ_TYPES = [
 ];
 var deck = [];
 
+
 function main() {
   d3.selectAll('.info .toggle').on('click', function () {
     var contents = d3.select('.info .contents');
